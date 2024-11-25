@@ -22,7 +22,34 @@ import Card from "./Card";
 
   //Increments currCardIdx state by 1
   function goForward() {
+    // If we're at the last card, go back to the first
+    if (currCardIdx >= total - 1) {
+      setCurrCardIdx(0);
+    }
+    // Otherwise increment to next card
     setCurrCardIdx(currCardIdx + 1);
+  }
+
+  //Decrements currCardIdx state by 1
+  function goBack() {
+    // If we're at the first card, go back to the last
+    if (currCardIdx <= 0) {
+      setCurrCardIdx(total - 1);
+    }
+    // Otherwise decrement to previous card
+    setCurrCardIdx(currCardIdx - 1);
+  }
+
+  function hideLeftArrow(){
+    if (currCardIdx === 0){
+      return "hidden";
+    }
+  }
+
+  function hideRightArrow(){
+    if (currCardIdx === total - 1){
+      return "hidden";
+    }
   }
 
   return (
@@ -31,7 +58,8 @@ import Card from "./Card";
       <div className="Carousel-main">
         <i
           className="bi bi-arrow-left-circle"
-          onClick={goForward}
+          onClick={goBack}
+          style={{visibility: hideLeftArrow()}}
         />
         <Card
           caption={currCard.caption}
@@ -42,6 +70,7 @@ import Card from "./Card";
         <i
           className="bi bi-arrow-right-circle"
           onClick={goForward}
+          style={{visibility: hideRightArrow()}}
         />
       </div>
     </div>
